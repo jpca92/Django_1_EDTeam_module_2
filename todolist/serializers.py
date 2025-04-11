@@ -11,3 +11,12 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if instance.state == '1':
+            state = 'To Do'
+        elif instance.state == '2':
+            state = 'Completed'
+        representation['state'] = state
+        return representation
